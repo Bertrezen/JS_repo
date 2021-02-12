@@ -29,8 +29,6 @@ function getNumber(min, max) {
     return number;
 }
 
-console.log('======== 2 задание ========');
-
 let basket = [
     {
         product: "apple",
