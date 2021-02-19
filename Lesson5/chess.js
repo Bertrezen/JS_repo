@@ -1,36 +1,31 @@
-var canvas = document.getElementById("renderCanvas");
-var ctx = canvas.getContext("2d");
-var offset = 25;
+function drawChess() {
+    let mainBlock = document.querySelector('.mainBlock');
+    let block;
+    let flag = true;
+    let figure = {
+        0 : ['-263px -19px', '-484px -22px', '-372px -17px', '-150px -16px', '-40px -16px','-372px -17px', '-484px -22px','-263px -19px'],
+        1 : ['-595px -19px', '-595px -19px', '-595px -19px', '-595px -19px', '-595px -19px','-595px -19px', '-595px -19px','-595px -19px'],
+        6 : ['-595px -116px', '-595px -116px', '-595px -116px', '-595px -116px', '-595px -116px','-595px -116px', '-595px -116px','-595px -116px'],
+        7 : ['-263px -116px', '-484px -116px', '-372px -116px', '-40px -116px', '-150px -116px','-372px -116px', '-484px -116px','-263px -116px'],
+    };
 
-ctx.font = "20px Arial";
-ctx.fillText("8", offset / 2 - 5, offset * 2 - 5);
-ctx.fillText("7", offset / 2 - 5, offset * 3 - 5);
-ctx.fillText("6", offset / 2 - 5, offset * 4 - 5);
-// Letters
-ctx.fillText("a", offset * 1 + 5, offset / 2 + 5);
-ctx.fillText("b", offset * 2 + 5, offset / 2 + 5);
-ctx.fillText("c", offset * 3 + 5, offset / 2 + 5);
+    for (let i=0; i<8; i++) {
+        for (let j=0; j<8; j++) {
+            if (j == 0) flag = !flag
+            block = document.createElement('div');
 
-drawCell(offset, offset, "black");
-drawCell(offset * 2, offset, "rgb(220, 220, 220)");
-drawCell(offset * 3, offset, "black");
-drawCell(offset * 2, offset * 2, "black");
-// Borders
-drawLine(offset * 9, offset, offset * 9, offset * 9); // Right border
-drawLine(offset, offset, offset, offset * 9); // Left border
-drawLine(offset, offset, offset * 9, offset); // Top border
+            if (flag) block.className = 'block black';
+            else block.className = 'block white';
 
-function drawCell(x, y, color) {
-    ctx.beginPath();
-    ctx.rect(x, y, 25, 25);
-    ctx.fillStyle = color;
-    ctx.fill();
+            if (figure[i]!==undefined && figure[i][j]!==undefined) {
+                block.style.backgroundImage = 'url(сhess_symbols_set_.png)';
+                block.style.backgroundPosition = figure[i][j];
+            }
+
+            mainBlock.appendChild(block);
+            flag = !flag;
+        }
+    }
 }
 
-function drawLine(x0, y0, x1, y1) {
-    ctx.beginPath();       // Start a new path
-    ctx.strokeStyle = "green";
-    ctx.moveTo(x0, y0);    // Move the pen to (x0, y0)
-    ctx.lineTo(x1, y1);    // Draw a line to (x1, y1)
-    ctx.stroke();          // Render the path
-}
+drawChess()
